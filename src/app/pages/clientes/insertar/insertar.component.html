@@ -1,0 +1,56 @@
+<toaster-container [toasterconfig]="config"></toaster-container>
+<div class="row">
+  <div class="col-12 col-md-12">
+
+    <header>
+      {{titulo}}
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </header>
+
+    <body>
+      <toaster-container [toasterconfig]="config"></toaster-container>
+
+      <form #formR="ngForm" class="form-horizontal">
+        <div class="row">
+
+
+          <div class="form-group col-md-6 col-sm-12">
+            <label class="control-label col-sm-2" for="cedula">Cedula:</label>
+            <div class="col">
+              <input type="number" #cedula="ngModel" class="form-control" verificarC id="cedula" placeholder="Cedula" name="cedula" required
+                [(ngModel)]="this.solicitudActual.cedula">
+            </div>
+            <div *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)" class="col">
+              <small *ngIf="cedula.errors.required" class="form-text text-muted text-danger text-right">Cedula requerida.</small>
+              <small *ngIf="cedula.errors?.verificarC" class="form-text text-danger
+                text-right">Cedula ya en uso.</small>
+            </div>
+          </div>
+
+
+          <div class="form-group col-md-6 col-sm-12">
+            <label class="control-label col-sm-2" for="nombre">Nombre:</label>
+            <div class="col">
+              <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre" [(ngModel)]="this.solicitudActual.nombreCompleto"
+                required #nombre="ngModel">
+            </div>
+            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="col">
+              <small *ngIf="nombre.errors.required" class="form-text text-muted text-danger text-right">Nombre requerido.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col">
+            <button type="button" class="btn btn-success" (click)="guardarDatos()" [disabled]=" !formR.form.valid " title="Guardar cambios.">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </body>
+    <footer>
+    </footer>
+
+  </div>
+</div>
