@@ -17,4 +17,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'fa fa-database',
     link: '/pages/inventarios/consultar',
   },
+  {
+    title: 'Facturacion',
+    icon: 'fa fa-credit-card',
+    link: '/pages/facturacion/consultar',
+  },
 ];
