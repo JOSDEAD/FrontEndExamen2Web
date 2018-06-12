@@ -71,6 +71,7 @@ export class InsertarComponent implements OnInit {
           this.producto.identificador = producto["producto"].identificador;
           this.producto.nombre = producto["producto"].nombre;
           this.producto.impuesto = producto["producto"].impuesto;
+          this.producto.precio = producto["producto"].precio;
           this.toasterManagerService.makeToast('success', 'Modificar', 'Producto modificado');
         },
         error => {

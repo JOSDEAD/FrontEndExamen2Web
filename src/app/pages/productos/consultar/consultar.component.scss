@@ -1,0 +1,23 @@
+.table{
+    text-align: center;
+    
+}
+.table th{
+    border-top: none;
+}
+
+.my-pagination /deep/ .ngx-pagination a:hover {
+    text-decoration: none;
+    color: black;
+}
+#dropdownbox{ 
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    color: white;
+    background-color: #40dc7e;
+    border-color: #40dc7e;
+}
+.color-icon{
+    background-color: #40dc7e;
+    border-color: #40dc7e;
+}
