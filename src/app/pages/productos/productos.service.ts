@@ -25,7 +25,7 @@ export class ProductosService {
   }
 
   //Borra un producto existente.
-  borrarProducto($id: string): Observable<{}> {
+  borrarProducto($id: number): Observable<{}> {
     return this.http.delete(this.api.concat('eliminarProducto/' + $id))
   }
 

@@ -4,7 +4,7 @@
       <nb-card-header>
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <h2>Productos</h2>
+            <h2>Inventarios</h2>
           </div>
           <div class="col-sm-12 col-md-6">
             <div class="input-group">
@@ -30,7 +30,7 @@
       <nb-card-body>
         <toaster-container [toasterconfig]="config"></toaster-container>
         <div class="button-group col align-self-end">
-          <button class="float-right btn btn-success" (click)="abrirModal(null)" title="Agregar producto">Agregar
+          <button class="float-right btn btn-success" (click)="abrirModal(null)" title="Agregar inventario">Agregar
             <i class="fa fa-plus"></i>
           </button>
         </div>
@@ -38,20 +38,28 @@
           <table class="table">
             <tr>
               <th>Identificador</th>
-              <th>Nombre</th>
-              <th>Impuesto</th>
+              <th>Id.Producto</th>
+              <th>Nom.Producto</th>
+              <th>Cantidad</th>
+              <th>Cantidad Maxima</th>
+              <th>Cantidad Minima</th>
+              <th>Gravado</th>
             </tr>
-            <tr *ngFor="let data of datosProducto | filtro:buscar:opcionSeleccionada |
+            <tr *ngFor="let data of datosInventario | filtro:buscar:opcionSeleccionada |
             paginate: { itemsPerPage: 6, currentPage: p }">
               <td>{{data.identificador}}</td>
+              <td>{{data.identificadorProducto}}</td>
               <td>{{data.nombre}}</td>
-              <td>{{data.impuesto}}</td>
+              <td>{{data.cantidad}}</td>
+              <td>{{data.cantidadMaxima}}</td>
+              <td>{{data.cantidadMinima}}</td>
+              <td>{{data.gravado}}</td>
               <td>
                 <div class="btn-group">
                   <button class="btn btn-primary" (click)="abrirModal(data)" title="Editar">
-                    <i class="fas fa-pencil-alt"></i>
+                    <i class="fa fa-pencil"></i>
                   </button>
-                  <button class="btn btn-danger" (click)="borrarProducto(data)" title="Eliminar">
+                  <button class="btn btn-danger" (click)="borrarInventario(data)" title="Eliminar">
                     <i class="fa fa-trash"></i>
                   </button>
                 </div>

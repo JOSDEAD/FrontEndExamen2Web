@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { InsertarComponent } from '../insertar/insertar.component';
 
-import { Producto } from '../producto';
-import { ProductosService } from '../productos.service';
+import { Inventario } from '../inventario';
+import { InventariosService } from '../inventarios.service';
 
 import { ToasterManagerService } from '../../../@core/toast/toaster-manager.service';
 import { configToasterManager } from '../../../@core/toast/config';
 import 'style-loader!angular2-toaster/toaster.css';
 
 import { ModalConfirmacionService } from '../../componentes-globales/modal-confirmacion/modal-confirmacion.service';
-
 
 @Component({
   selector: 'consultar',
@@ -23,55 +22,56 @@ export class ConsultarComponent implements OnInit {
 
   modalOption: NgbModalOptions = {}; // not null!
   //Opciones de busqueda.
-  opciones = ['Identificador', 'Nombre', 'Impuesto'];
+  opciones = ['Identificador', 'Id.Producto', 'Nom.Producto'];
   //Opcion por default.
   opcionSeleccionada: any = 'Identificador';
-  private datosProducto: Producto[];
-
-  constructor(private modalService: NgbModal, private productosService: ProductosService, private modalConfirmacionService: ModalConfirmacionService, private toasterManagerService: ToasterManagerService) { }
+  private datosInventario: Inventario[];
 
 
-  //Obtiene la lista de los productos existentes.
-  getProductos(): void {
-    this.productosService.consultarProductos()
-      .subscribe(res => this.datosProducto = res['productos']);
+  constructor(private modalService: NgbModal, private inventariosService: InventariosService, private modalConfirmacionService: ModalConfirmacionService, private toasterManagerService: ToasterManagerService) { }
+
+
+  //Obtiene la lista de los inventario existentes.
+  getInventarios(): void {
+    this.inventariosService.consultarInventarios()
+      .subscribe(res => this.datosInventario = res['inventario']);
   }
 
   ngOnInit() {
-    this.getProductos();
+    this.getInventarios();
   }
 
 
   //Abrir modal, para insertar o para modificar.
-  abrirModal(Producto: Producto) {
+  abrirModal(Inventario: Inventario) {
     this.modalOption.backdrop = 'static';
     this.modalOption.keyboard = false;
     this.modalOption.size = 'lg';
     const modalRef = this.modalService.open(InsertarComponent, this.modalOption);
-    modalRef.componentInstance.datosProducto = this.datosProducto;
-    modalRef.componentInstance.producto = Producto;
+    modalRef.componentInstance.datosInventario = this.datosInventario;
+    modalRef.componentInstance.inventario = Inventario;
   }
 
 
   // Al dar clic al boton de eliminar.
-  borrarProducto(producto: Producto) {
-    this.modalConfirmacionService.confirmar('Por favor confirme..', '¿Desea borrar el producto ' + producto.nombre + '?')
+  borrarProducto(inventario: Inventario) {
+    this.modalConfirmacionService.confirmar('Por favor confirme..', '¿Desea borrar el inventario ' + inventario.nombre + '?')
       .then((confirmed) => {
         if (confirmed) {
-          const posicion = this.datosProducto.findIndex(
-            (product: Producto) => {
-              return product.identificador === producto.identificador;
+          const posicion = this.datosInventario.findIndex(
+            (invent: Inventario) => {
+              return invent.identificador === inventario.identificador;
             },
           );
-          this.productosService.borrarProducto(producto.id).subscribe(
+          this.inventariosService.borrarInventario(inventario.id).subscribe(
             () => {
-              this.datosProducto.splice(posicion, 1),
+              this.datosInventario.splice(posicion, 1),
                 this.toasterManagerService.makeToast('success', 'Eliminar',
-                  'Producto eliminado')
+                  'Inventario eliminado')
             },
             error => {
               this.toasterManagerService.makeToast('error', '¡No se completo el eliminar!',
-                'No se ha eliminado el producto debido a un error con el servidor.')
+                'No se ha eliminado el inventario debido a un error con el servidor.')
             },
           );
         }

@@ -16,7 +16,7 @@ export class FiltroPipe implements PipeTransform {
         return productos.nombre.toLowerCase().includes(buscar.toLowerCase());
       }
       else if (adicional === 'Impuesto'.toString()) {
-        return productos.impuesto.toLowerCase().includes(buscar.toLowerCase());
+        return productos.impuesto.toString().includes(buscar);
       }
       else {
         return productos;

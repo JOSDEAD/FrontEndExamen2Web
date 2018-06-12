@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'ngx-producto',
+    selector: 'ngx-inventario',
     template: `<router-outlet></router-outlet>`,
 })
-export class ProductosComponent implements OnInit {
+export class InventariosComponent implements OnInit {
 
     constructor() { }
 

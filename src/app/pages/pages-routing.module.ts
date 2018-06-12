@@ -21,6 +21,10 @@ const routes: Routes = [{
       loadChildren: './productos/productos.module#ProductosModule',
     },
     {
+      path: 'inventarios',
+      loadChildren: './inventarios/inventarios.module#InventariosModule',
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',

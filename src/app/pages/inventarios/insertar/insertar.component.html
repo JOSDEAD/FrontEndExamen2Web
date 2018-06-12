@@ -1,0 +1,120 @@
+<toaster-container [toasterconfig]="config"></toaster-container>
+<div class="row">
+  <div class="col-12 col-md-12">
+    <nb-card>
+      <nb-card-header>
+        {{titulo}}
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+
+      <nb-card-body>
+        <toaster-container [toasterconfig]="config"></toaster-container>
+
+        <form #formR="ngForm" class="form-horizontal">
+          <div class="row">
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="identificador">Identificador:</label>
+              <div class="col">
+                <input type="text" #identificador="ngModel" class="form-control" verificarC id="identificador" placeholder="Identificador"
+                  name="identificador" required [(ngModel)]="this.solicitudActual.identificador">
+              </div>
+              <div *ngIf="identificador.invalid && (identificador.dirty || identificador.touched)" class="col">
+                <small *ngIf="identificador.errors.required" class="form-text text-muted text-danger text-right">Identificador requerido.</small>
+                <small *ngIf="identificador.errors?.verificarC" class="form-text text-danger
+                text-right">Identificador ya en uso.</small>
+              </div>
+            </div>
+
+            <!--___________________________________________________________________________-->
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="identificadorProducto">Id.Producto:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="identificadorProducto" placeholder="Id.Producto" name="identificadorProducto"
+                  [(ngModel)]="this.solicitudActual.identificadorProducto" required #identificadorProducto="ngModel">
+              </div>
+              <div *ngIf="identificadorProducto.invalid && (identificadorProducto.dirty || identificadorProducto.touched)" class="col">
+                <small *ngIf="identificadorProducto.errors.required" class="form-text text-muted text-danger text-right">identificadorProducto requerido.</small>
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="nombre">Nom.Producto:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="nombre" placeholder="Nom.Producto" name="nombre" [(ngModel)]="this.solicitudActual.nombre"
+                  required #nombre="ngModel">
+              </div>
+              <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="col">
+                <small *ngIf="nombre.errors.required" class="form-text text-muted text-danger text-right">nombre requerido.</small>
+              </div>
+            </div>
+
+            <!--___________________________________________________________________________-->
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="cantidad">Cantidad:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="cantidad" placeholder="Cantidad" name="cantidad" [(ngModel)]="this.solicitudActual.cantidad"
+                  required #cantidad="ngModel">
+              </div>
+              <div *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)" class="col">
+                <small *ngIf="cantidad.errors.required" class="form-text text-muted text-danger text-right">Cantidad requeria.</small>
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="cantidadMaxima">Cantidad Maxima:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="cantidadMaxima" placeholder="Cantidad Maxima" name="cantidadMaxima" [(ngModel)]="this.solicitudActual.cantidadMaxima"
+                  required #cantidadMaxima="ngModel">
+              </div>
+              <div *ngIf="cantidadMaxima.invalid && (cantidadMaxima.dirty || cantidadMaxima.touched)" class="col">
+                <small *ngIf="cantidadMaxima.errors.required" class="form-text text-muted text-danger text-right">Cantidad Maxima requerida.</small>
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="cantidadMinima">Cantidad Minima:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="cantidadMinima" placeholder="Cantidad Minima" name="cantidadMinima" [(ngModel)]="this.solicitudActual.cantidadMinima"
+                  required #cantidadMinima="ngModel">
+              </div>
+              <div *ngIf="cantidadMinima.invalid && (cantidadMinima.dirty || cantidadMinima.touched)" class="col">
+                <small *ngIf="cantidadMinima.errors.required" class="form-text text-muted text-danger text-right">Cantidad Minima requerida.</small>
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="gravado">Gravado:</label>
+              <div class="col">
+                <input type="checkbox" class="form-control" id="gravado" placeholder="Gravado" name="gravado" [(ngModel)]="this.solicitudActual.gravado"
+                  required #gravado="ngModel">
+              </div>
+              <div *ngIf="gravado.invalid && (gravado.dirty || gravado.touched)" class="col">
+                <small *ngIf="gravado.errors.required" class="form-text text-muted text-danger text-right">Gravado requerido.</small>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <div class="col">
+              <button type="button" class="btn btn-success" (click)="guardarDatos()" [disabled]=" !formR.form.valid " title="Guardar cambios.">Guardar</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
