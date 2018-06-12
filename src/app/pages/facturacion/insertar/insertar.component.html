@@ -1,0 +1,111 @@
+<toaster-container [toasterconfig]="config"></toaster-container>
+<div class="row">
+  <div class="col-12 col-md-12">
+    <nb-card>
+      <nb-card-header>
+        {{titulo}}
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </nb-card-header>
+
+      <nb-card-body>
+        <toaster-container [toasterconfig]="config"></toaster-container>
+
+        <form #formR="ngForm" class="form-horizontal">
+          <div class="row">
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="identificador">Identificador:</label>
+              <div class="col">
+                <input type="text" #identificador="ngModel" class="form-control" verificarC id="identificador" placeholder="Dejar en blanco."
+                  name="identificador" required [(ngModel)]="this.solicitudActual.id" [disabled]="true">
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="cedula">Cedula:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="cedula" placeholder="Cedula" name="cedula" [(ngModel)]="this.solicitudActual.cedula"
+                  required #cedula="ngModel">
+              </div>
+              <div *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)" class="col">
+                <small *ngIf="cedula.errors.required" class="form-text text-muted text-danger text-right">Cedula requerida.</small>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="form-group col-md-12 col-sm-12">
+              <label class="control-label col-sm-2" for="productos"> Productos:</label>
+
+              <form #formRef="ngForm">
+                <div *ngFor="let tel of this.solicitudActual.productos; let in=index" class="col">
+                  <div class="form-group">
+                    <input type="number" id="productos" placeholder="Insertar id del producto" [(ngModel)]="this.solicitudActual.productos[in].numero"
+                      name="productos{{in}}" class="form-control" required [disabled]="desabilitado" />
+                  </div>
+                  <br />
+                </div>
+
+                <div class="col-12 form-group">
+                  <div class="float-right btn-group">
+                    <button type="button " [disabled]="!formRef.form.valid" class="btn btn-success" (click)="add(data)" [disabled]="desabilitado"
+                      title="Agregar productos.">
+                      <i class="fa fa-plus"></i>
+                    </button>
+
+                    <button type="button" [disabled]="1 >= this.solicitudActual.productos.length" class="btn btn-danger" (click)="delete(data)"
+                      [disabled]="desabilitado" title="Quitar productos.">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+
+
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="subTotal">Sub Total:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="subTotal" placeholder="Sub Total" name="subTotal" [(ngModel)]="this.solicitudActual.subTotal"
+                  required #subTotal="ngModel" [disabled]="true">
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="impuesto">Impuesto:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="impuesto" placeholder="Impuesto" name="impuesto" [(ngModel)]="this.solicitudActual.impuesto"
+                  required #impuesto="ngModel" [disabled]="true">
+              </div>
+            </div>
+
+            <div class="form-group col-md-6 col-sm-12">
+              <label class="control-label col-sm-2" for="montoTotal">Monto Total:</label>
+              <div class="col">
+                <input type="text" class="form-control" id="montoTotal" placeholder="Monto Total" name="montoTotal" [(ngModel)]="this.solicitudActual.montoTotal"
+                  required #impuesto="ngModel" [disabled]="true">
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col">
+              <button type="button" class="btn btn-success" (click)="guardarDatos()" [disabled]=" !formR.form.valid " title="Guardar cambios.">Guardar</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+      <nb-card-footer>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
