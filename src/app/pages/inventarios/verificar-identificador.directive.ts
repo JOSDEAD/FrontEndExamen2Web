@@ -1,18 +1,18 @@
 import { Directive, Input } from '@angular/core';
 import { NG_VALIDATORS, Validator, FormControl } from '@angular/forms';
-import { Cliente } from './cliente';
-import { ClientesService } from './clientes.service'
+import { Inventario } from './inventario';
+import { InventariosService } from './inventarios.service'
 
 @Directive({
   selector: '[ngx-verificarC][formControlName],[verificarC][formControl],[verificarC][ngModel]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: VerificarCedulaDirective, multi: true }],
+  providers: [{ provide: NG_VALIDATORS, useExisting: VerificarIdentificadorDirective, multi: true }],
 })
-export class VerificarCedulaDirective implements Validator {
-  Cliente: Cliente[];
-  constructor(private clientesService: ClientesService) {
-    this.Cliente = new Array<Cliente>();
-    this.clientesService.consultarClientes()
-      .subscribe(datosCliente => this.Cliente = datosCliente["clientes"]);
+export class VerificarIdentificadorDirective implements Validator {
+  Inventario: Inventario[];
+  constructor(private inventariosService: InventariosService) {
+    this.Inventario = new Array<Inventario>();
+    this.inventariosService.consultarInventarios()
+      .subscribe(datosInventario => this.Inventario = datosInventario["inventario"]);
   }
 
   // función personalizada que valida que el valor ingresado
@@ -21,9 +21,8 @@ export class VerificarCedulaDirective implements Validator {
     u = control.value;
     let p: boolean;
     if (u !== null && u !== undefined) {
-      u = u.toString().replace(' ', '')
-      this.Cliente.forEach(cli => {
-        if (cli.cedula === u) {
+      this.Inventario.forEach(pro => {
+        if (pro.identificador === u) {
           p = true;
         }
       });
