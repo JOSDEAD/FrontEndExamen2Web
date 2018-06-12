@@ -34,7 +34,7 @@ export class ConsultarComponent implements OnInit {
   //Obtiene la lista de los inventario existentes.
   getInventarios(): void {
     this.inventariosService.consultarInventarios()
-      .subscribe(res => this.datosInventario = res['inventario']);
+      .subscribe(res => this.datosInventario = res['inventarios']);
   }
 
   ngOnInit() {
@@ -54,7 +54,7 @@ export class ConsultarComponent implements OnInit {
 
 
   // Al dar clic al boton de eliminar.
-  borrarProducto(inventario: Inventario) {
+  borrarInventario(inventario: Inventario) {
     this.modalConfirmacionService.confirmar('Por favor confirme..', '¿Desea borrar el inventario ' + inventario.nombre + '?')
       .then((confirmed) => {
         if (confirmed) {

@@ -31,29 +31,30 @@
 
             <!--___________________________________________________________________________-->
 
-
             <div class="form-group col-md-6 col-sm-12">
-              <label class="control-label col-sm-2" for="identificadorProducto">Id.Producto:</label>
-              <div class="col">
-                <input type="text" class="form-control" id="identificadorProducto" placeholder="Id.Producto" name="identificadorProducto"
-                  [(ngModel)]="this.solicitudActual.identificadorProducto" required #identificadorProducto="ngModel">
-              </div>
-              <div *ngIf="identificadorProducto.invalid && (identificadorProducto.dirty || identificadorProducto.touched)" class="col">
-                <small *ngIf="identificadorProducto.errors.required" class="form-text text-muted text-danger text-right">identificadorProducto requerido.</small>
+              <label class="control-label col-sm-2" for="h">Producto:</label>
+              <ng-select [items]="productos"   #fun="ngModel" required [(ngModel)]="producto"
+                name="producto" [searchFn]="busquedaProductos" [virtualScroll]="true" [placeholder]="placeholder" [notFoundText]="notFoundText"
+                [clearAllText]="clearAllText">
+                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                  <span class="ng-value-label">
+                    <b>Identificador: </b>{{item.identificador}}
+                    <b>Nombre:</b>
+                    <small>{{item.nombre}}</small>
+                  </span>
+                </ng-template>
+                <ng-template class="form-control" ng-option-tmp let-item="item">
+                  <b>Identificador:</b> {{item.identificador}}
+                  <br />
+                  <small>
+                    <b>Nombre:</b> {{item.nombre}}</small>
+                </ng-template>
+              </ng-select>
+              <div *ngIf="fun.invalid && (fun.dirty || fun.touched)">
+                <small *ngIf="fun.errors.required" class="form-text text-muted text-danger align-left">Producto es requerido.</small>
               </div>
             </div>
 
-
-            <div class="form-group col-md-6 col-sm-12">
-              <label class="control-label col-sm-2" for="nombre">Nom.Producto:</label>
-              <div class="col">
-                <input type="text" class="form-control" id="nombre" placeholder="Nom.Producto" name="nombre" [(ngModel)]="this.solicitudActual.nombre"
-                  required #nombre="ngModel">
-              </div>
-              <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="col">
-                <small *ngIf="nombre.errors.required" class="form-text text-muted text-danger text-right">nombre requerido.</small>
-              </div>
-            </div>
 
             <!--___________________________________________________________________________-->
 
@@ -96,8 +97,8 @@
             <div class="form-group col-md-6 col-sm-12">
               <label class="control-label col-sm-2" for="gravado">Gravado:</label>
               <div class="col">
-                <input type="checkbox" class="form-control" id="gravado" placeholder="Gravado" name="gravado" [(ngModel)]="this.solicitudActual.gravado"
-                  required #gravado="ngModel">
+                <input type="checkbox" class="form-control" id="gravado" placeholder="Gravado" name="gravado" [(ngModel)]="gravadoe"
+                   #gravado="ngModel">
               </div>
               <div *ngIf="gravado.invalid && (gravado.dirty || gravado.touched)" class="col">
                 <small *ngIf="gravado.errors.required" class="form-text text-muted text-danger text-right">Gravado requerido.</small>
