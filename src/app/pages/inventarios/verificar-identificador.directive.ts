@@ -12,7 +12,7 @@ export class VerificarIdentificadorDirective implements Validator {
   constructor(private inventariosService: InventariosService) {
     this.Inventario = new Array<Inventario>();
     this.inventariosService.consultarInventarios()
-      .subscribe(datosInventario => this.Inventario = datosInventario["inventario"]);
+      .subscribe(datosInventario => this.Inventario = datosInventario["inventarios"]);
   }
 
   // función personalizada que valida que el valor ingresado

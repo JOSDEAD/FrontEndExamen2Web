@@ -15,6 +15,7 @@ import { ModalConfirmacionComponent } from '../componentes-globales/modal-confir
 import { PagesModule } from '../pages.module';
 import { VerificarIdentificadorDirective } from './verificar-identificador.directive';
 import { ThemeModule } from '../../@theme/theme.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ThemeModule } from '../../@theme/theme.module';
     ReactiveFormsModule,
     NgxPaginationModule,
     InventariosRoutingModule,
+    NgSelectModule,
     PagesModule
   ],
   declarations: [InsertarComponent, ConsultarComponent, FiltroPipe, InventariosComponent, VerificarIdentificadorDirective],

@@ -8,6 +8,8 @@ import { configToasterManager } from '../../../@core/toast/config';
 import 'style-loader!angular2-toaster/toaster.css';
 
 import { COMPOSITION_BUFFER_MODE } from '@angular/forms';
+import { ProductosService } from '../../productos/productos.service';
+import { Producto } from '../../productos/producto';
 
 @Component({
   selector: 'insertar',
@@ -22,16 +24,43 @@ export class InsertarComponent implements OnInit {
   private Inventarios;
   private titulo;
   private solicitudActual;
-
+  private productos;
   config = configToasterManager;
-
-  constructor(public activeModal: NgbActiveModal, private InventariosService: InventariosService,
+  private producto;
+  placeholder: string = 'Buscar producto...';
+  notFoundText: string = 'Producto no encontrado.';
+  clearAllText: string = 'Limpiar';
+  private gravadoe:boolean=false;
+  constructor(public activeModal: NgbActiveModal, private productosService: ProductosService,private InventariosService: InventariosService,
     private toasterManagerService: ToasterManagerService) { }
+
+    observerProductos = {
+      // primero se obtienen los datos de funcionarios
+      next: res => { this.productos = res['productos']},
+      // en caso de error
+      error: err => error => {
+        this.toasterManagerService.makeToast('error', 'No se puede obtener productos! ',
+          'No se puede obtener productos debido a un error con el servidor.');
+      },
+      /* cuando se obtengan los funcionarios para el select, si es modificar, se selecciona el funcionario,
+       al que pertenece el usuario en el select*/
+      complete: () => {
+        if (this.inventario !== null) {
+          this.productos.forEach(pro => {
+            if (pro.identificador === this.inventario.identificadorProducto) {
+              this.producto = pro;
+            }
+          });
+        }
+      },
+    };
 
   ngOnInit() {
     this.solicitudActual = new Inventario();
     this.InventariosService.consultarInventarios()
       .subscribe(res => this.Inventarios = res);
+    this.productosService.consultarProductos()
+      .subscribe(this.observerProductos);
     //Si se inicia para insertar    
     if (this.inventario == null) {
       this.solicitudActual = new Inventario();
@@ -45,13 +74,18 @@ export class InsertarComponent implements OnInit {
     }
 
   }
-
+  busquedaProductos(texto: string, item: Producto){
+    texto = texto.toLocaleLowerCase();
+    return item.nombre.toLocaleLowerCase().includes(texto) || item.identificador.toString().toLocaleLowerCase().includes(texto);
+  }
   guardarDatos() {
+    this.solicitudActual.identificadorProducto = this.producto.identificador;
+    this.solicitudActual.gravado = this.gravadoe;
     //Si se inicia para insertar    
     if (this.inventario == null) {
       this.InventariosService.insertarInventario(this.solicitudActual).subscribe(
         inventario => {
-          this.datosInventario.push(inventario["inventario"])
+          this.datosInventario.push(inventario["inventario"]);
           this.toasterManagerService.makeToast('success', 'Agregar', 'Inventario agregado');
         },
         error => {
@@ -66,8 +100,8 @@ export class InsertarComponent implements OnInit {
       this.InventariosService.modificarInventario(this.solicitudActual).subscribe(
         inventario => {
           this.inventario.identificador = inventario["inventario"].identificador;
-          this.inventario.identificadorProducto = inventario["inventario"].identificadorProducto;
-          this.inventario.nombre = inventario["inventario"].nombre;
+          this.inventario.identificadorProducto = this.producto.identificador;
+          this.inventario.nombre = this.producto.nombre;
           this.inventario.cantidad = inventario["inventario"].cantidad;
           this.inventario.cantidadMaxima = inventario["inventario"].cantidadMaxima;
           this.inventario.cantidadMinima = inventario["inventario"].cantidadMinima;
