@@ -25,6 +25,10 @@ const routes: Routes = [{
       loadChildren: './inventarios/inventarios.module#InventariosModule',
     },
     {
+      path: 'facturacion',
+      loadChildren: './facturacion/facturacion.module#FacturacionModule',
+    },
+    {
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
