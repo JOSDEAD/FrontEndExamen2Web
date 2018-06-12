@@ -6,17 +6,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FiltroPipe implements PipeTransform {
 
-  transform(funcionarios: any, buscar: any, adicional: string): any {
-    if (buscar === undefined) return funcionarios;
-    return funcionarios.filter(function (funcionarios) {
+  transform(cliente: any, buscar: any, adicional: string): any {
+    if (buscar === undefined) return cliente;
+    return cliente.filter(function (clientes) {
       if (adicional === 'Cedula'.toString()) {
-        return funcionarios.cedula.toString().includes(buscar);
+        return clientes.cedula.toString().includes(buscar);
       }
       else if (adicional === 'Nombre'.toString()) {
-        return funcionarios.nombre.toLowerCase().includes(buscar.toLowerCase());
+        return clientes.nombre.toLowerCase().includes(buscar.toLowerCase());
       }
       else {
-        return funcionarios;
+        return clientes;
       }
     })
   }

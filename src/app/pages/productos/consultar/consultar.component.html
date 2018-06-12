@@ -5,7 +5,7 @@
       <nb-card-header>
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <h2>Clientes</h2>
+            <h2>Productos</h2>
           </div>
           <div class="col-sm-12 col-md-6">
             <div class="input-group">
@@ -31,26 +31,28 @@
       <nb-card-body>
         <toaster-container [toasterconfig]="config"></toaster-container>
         <div class="button-group col align-self-end">
-          <button class="float-right btn btn-success" (click)="abrirModal(null)" title="Agregar cliente">Agregar
+          <button class="float-right btn btn-success" (click)="abrirModal(null)" title="Agregar producto">Agregar
             <i class="fa fa-plus"></i>
           </button>
         </div>
         <div class="table-responsive">
           <table class="table">
             <tr>
-              <th>Cedula</th>
+              <th>Identificador</th>
               <th>Nombre</th>
+              <th>Impuesto</th>
             </tr>
-            <tr *ngFor="let data of datosCliente | filtro:buscar:opcionSeleccionada |
+            <tr *ngFor="let data of datosProducto | filtro:buscar:opcionSeleccionada |
             paginate: { itemsPerPage: 6, currentPage: p }">
-              <td>{{data.cedula}}</td>
-              <td>{{data.nombreCompleto}}</td>
+              <td>{{data.identificador}}</td>
+              <td>{{data.nombre}}</td>
+              <td>{{data.impuesto}}</td>
               <td>
                 <div class="btn-group">
                   <button class="btn btn-primary" (click)="abrirModal(data)" title="Editar">
                     <i class="fas fa-pencil-alt"></i>
                   </button>
-                  <button class="btn btn-danger" (click)="borrarCliente(data)" title="Eliminar">
+                  <button class="btn btn-danger" (click)="borrarProducto(data)" title="Eliminar">
                     <i class="fa fa-trash"></i>
                   </button>
                 </div>
@@ -64,7 +66,6 @@
         <pagination-controls class="my-pagination pagination justify-content-center" maxSize="9" (pageChange)="p = $event" autoHide="true"
           previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
       </nb-card-footer>
-
     </nb-card>
   </div>
 </div>
