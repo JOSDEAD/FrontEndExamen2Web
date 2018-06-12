@@ -27,7 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
     ReactiveFormsModule,
-  ],
+  ], 
   bootstrap: [AppComponent],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

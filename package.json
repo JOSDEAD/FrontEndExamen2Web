@@ -42,6 +42,7 @@
     "@nebular/security": "^2.0.0-rc.8",
     "@nebular/theme": "^2.0.0-rc.8",
     "@ng-bootstrap/ng-bootstrap": "1.0.0",
+    "angular-font-awesome": "^3.1.2",
     "angular2-toaster": "^6.0.0",
     "bootstrap": "4.0.0",
     "classlist.js": "1.1.20150312",

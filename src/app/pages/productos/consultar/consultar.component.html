@@ -39,17 +39,19 @@
             <tr>
               <th>Identificador</th>
               <th>Nombre</th>
+              <th>Precio</th>
               <th>Impuesto</th>
             </tr>
             <tr *ngFor="let data of datosProducto | filtro:buscar:opcionSeleccionada |
             paginate: { itemsPerPage: 6, currentPage: p }">
               <td>{{data.identificador}}</td>
               <td>{{data.nombre}}</td>
+              <td>{{data.precio}}</td>
               <td>{{data.impuesto}}</td>
               <td>
                 <div class="btn-group">
                   <button class="btn btn-primary" (click)="abrirModal(data)" title="Editar">
-                    <i class="fas fa-pencil-alt"></i>
+                    <i class="fa fa-pencil"></i>
                   </button>
                   <button class="btn btn-danger" (click)="borrarProducto(data)" title="Eliminar">
                     <i class="fa fa-trash"></i>

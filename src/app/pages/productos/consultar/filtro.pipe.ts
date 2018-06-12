@@ -10,7 +10,7 @@ export class FiltroPipe implements PipeTransform {
     if (buscar === undefined) return productos;
     return productos.filter(function (productos) {
       if (adicional === 'Identificador'.toString()) {
-        return productos.cedula.toString().includes(buscar);
+        return productos.identificador.toString().includes(buscar);
       }
       else if (adicional === 'Nombre'.toString()) {
         return productos.nombre.toLowerCase().includes(buscar.toLowerCase());
